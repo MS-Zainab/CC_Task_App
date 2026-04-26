@@ -1,17 +1,21 @@
-# Step 1: Use an official Python image
+# Use Python image
 FROM python:3.9-slim
 
-# Step 2: Set the working directory inside the container
+# Install ping utility (Yeh zaroori hai status check ke liye)
+RUN apt-get update && apt-get install -y iputils-ping && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
 
-# Step 3: Copy your project files into the container
-COPY . /app
+# Copy requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Step 4: Install the libraries needed for your app
-RUN pip install flask flask-sqlalchemy
+# Copy the rest of the code
+COPY . .
 
-# Step 5: Tell Docker which port the app runs on
+# Expose port 5000
 EXPOSE 5000
 
-# Step 6: The command to run your app
+# Run the application
 CMD ["python", "app.py"]

@@ -7,107 +7,96 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .pulse-icon {
-            animation: pulse-animation 2s infinite;
-        }
+        .pulse-icon { animation: pulse-animation 2s infinite; }
         @keyframes pulse-animation {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
+        .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
     </style>
 </head>
 <body class="bg-slate-900 min-h-screen font-sans text-slate-800">
 
-    <nav class="bg-blue-800 p-4 text-white shadow-lg mb-8">
+    <nav class="bg-blue-800 p-4 text-white shadow-lg mb-8 border-b border-blue-600">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <i class="fas fa-satellite-dish text-2xl text-blue-300"></i>
-                <h1 class="text-xl font-bold tracking-tight">CLOUD<span class="text-blue-300">PULSE</span> <span class="text-xs bg-blue-700 px-2 py-1 rounded ml-2 font-normal">v2.0</span></h1>
+                <i class="fas fa-microchip text-2xl text-blue-300"></i>
+                <h1 class="text-xl font-bold tracking-tight">CLOUD<span class="text-blue-300">PULSE</span> <span class="text-xs bg-blue-700 px-2 py-1 rounded ml-2 font-normal italic">v2.1 (Live)</span></h1>
             </div>
-            <div class="text-sm font-mono bg-blue-900 px-4 py-2 rounded border border-blue-700">
-                <i class="fas fa-server mr-2 text-green-400"></i> Node: {{ hostname }}
+            <div class="text-sm font-mono bg-blue-900 px-4 py-2 rounded border border-blue-700 flex items-center gap-3">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span>Active Server: {{ hostname }}</span>
             </div>
         </div>
     </nav>
 
     <div class="max-w-6xl mx-auto px-4 pb-20">
-        
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <div class="lg:col-span-1">
                 <div class="glass-effect p-6 rounded-2xl shadow-2xl border border-slate-200">
-                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-                        <i class="fas fa-plus-circle text-blue-600"></i> Add New Node
+                    <h2 class="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2">
+                        <i class="fas fa-plus-circle text-blue-600"></i> Deploy New Node
                     </h2>
                     <form action="/add" method="POST" class="space-y-4">
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Server Identifier</label>
-                            <input type="text" name="server_name" placeholder="e.g. Production-VM-01" 
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Node Identifier</label>
+                            <input type="text" name="server_name" placeholder="e.g. Cloud-Server-01" 
                                    class="w-full border-2 border-slate-100 p-3 rounded-xl focus:border-blue-500 outline-none transition-all" required>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Network IP Address</label>
-                            <input type="text" name="ip_address" placeholder="e.g. 192.168.1.10" 
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Target IP Address</label>
+                            <input type="text" name="ip_address" placeholder="e.g. 192.168.1.1" 
                                    class="w-full border-2 border-slate-100 p-3 rounded-xl focus:border-blue-500 outline-none transition-all" required>
                         </div>
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex justify-center items-center gap-2">
-                            <i class="fas fa-bolt"></i> Deploy Monitor
+                            <i class="fas fa-network-wired"></i> INITIALIZE MONITOR
                         </button>
                     </form>
-                    <p class="text-[10px] text-gray-400 mt-6 text-center italic uppercase tracking-widest">Secure Cloud Infrastructure Protocol</p>
                 </div>
             </div>
 
             <div class="lg:col-span-2">
                 <div class="glass-effect rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-                    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
+                    <div class="p-6 bg-white border-b border-slate-100 flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-2">
-                            <i class="fas fa-chart-line text-green-600"></i> Active Resource Dashboard
+                            <i class="fas fa-satellite-dish text-blue-600"></i> Real-time Monitoring Dashboard
                         </h2>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Live Updates Enabled</span>
+                        <span class="text-[10px] font-bold text-blue-400 bg-blue-50 px-2 py-1 rounded">AUTO-REFRESH: ON</span>
                     </div>
                     
                     <div class="overflow-x-auto">
-                        <table class="w-full">
+                        <table class="w-full text-left">
                             <thead class="bg-slate-50">
                                 <tr>
-                                    <th class="p-4 text-xs font-bold text-slate-500 uppercase">Resource Name</th>
-                                    <th class="p-4 text-xs font-bold text-slate-500 uppercase">IP Address</th>
-                                    <th class="p-4 text-xs font-bold text-slate-500 uppercase text-center">Health Status</th>
+                                    <th class="p-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Resource Name</th>
+                                    <th class="p-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Network IP</th>
+                                    <th class="p-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest text-center">Health Status</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 {% for r in resources %}
-                                <tr class="hover:bg-blue-50/50 transition-colors">
+                                <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="p-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center">
-                                                <i class="fas fa-microchip"></i>
-                                            </div>
+                                            <i class="fas fa-server text-slate-300"></i>
                                             <span class="font-bold text-slate-700">{{ r.server_name }}</span>
                                         </div>
                                     </td>
                                     <td class="p-4">
-                                        <code class="bg-slate-100 px-2 py-1 rounded text-sm text-blue-600 font-mono">{{ r.ip_address }}</code>
+                                        <code class="text-sm text-blue-600 font-mono bg-blue-50 px-2 py-1 rounded">{{ r.ip_address }}</code>
                                     </td>
                                     <td class="p-4">
                                         <div class="flex items-center justify-center gap-2">
-                                            <div class="w-2 h-2 bg-green-500 rounded-full pulse-icon"></div>
-                                            <span class="text-xs font-bold text-green-600 uppercase">Healthy</span>
+                                            <div class="w-2 h-2 rounded-full {% if r.status == 'Healthy' %}bg-green-500 pulse-icon{% else %}bg-red-500{% endif %}"></div>
+                                            <span class="text-xs font-black uppercase {% if r.status == 'Healthy' %}text-green-600{% else %}text-red-600{% endif %}">
+                                                {{ r.status }}
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
                                 {% endfor %}
-                                {% if not resources %}
-                                <tr>
-                                    <td colspan="3" class="p-10 text-center text-gray-400 italic">No nodes detected. Please add a resource to start monitoring.</td>
-                                </tr>
-                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -116,6 +105,5 @@
 
         </div>
     </div>
-
 </body>
 </html>
