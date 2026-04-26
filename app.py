@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 import socket
-import subprocess
-import platform
 
 app = Flask(__name__)
 
@@ -20,15 +18,18 @@ class CloudResource(db.Model):
     ip_address = db.Column(db.String(50), nullable=False)
     status = db.Column(db.String(20), default='Checking...')
 
-# Function to check if IP is alive
+# Real-time Health Check using Socket
 def check_health(ip):
     try:
-        # Determine operating system for ping command
-        param = '-n' if platform.system().lower() == 'windows' else '-c'
-        # Ping command: sends 1 packet, waits 1 second
-        command = ['ping', param, '1', '-W', '1', ip]
-        result = subprocess.run(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return "Healthy" if result.returncode == 0 else "Offline"
+        # Port 80 (HTTP) ya 443 (HTTPS) par connection check karein
+        # Google (8.8.8.8) port 53 (DNS) par hamesha active hota hai
+        ports = [53, 80, 443]
+        for port in ports:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(1.5) # 1.5 seconds wait karein
+                if s.connect_ex((ip, port)) == 0:
+                    return "Healthy"
+        return "Offline"
     except:
         return "Offline"
 
@@ -59,5 +60,4 @@ def add():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    # debug=True allows auto-reload during development
     app.run(host='0.0.0.0', port=5000, debug=True)
