@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud Deployment App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center">
+    <div class="bg-slate-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-slate-700">
+        <h1 class="text-3xl font-bold mb-6 text-blue-400 text-center">Cloud Pulse</h1>
+        
+        <form action="/add" method="POST" class="mb-8">
+            <input type="text" name="name" placeholder="Enter your name" 
+                   class="w-full p-3 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-blue-500 mb-4">
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 transition p-3 rounded font-semibold">
+                Register Visit
+            </button>
+        </form>
+
+        <div class="space-y-2">
+            <h2 class="text-xl font-semibold border-b border-slate-700 pb-2">Recent Visitors</h2>
+            <ul class="max-h-40 overflow-y-auto">
+                {% for visitor in visitors %}
+                <li class="p-2 bg-slate-700/50 rounded mb-1 text-slate-300">#{{ visitor.id }} - {{ visitor.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
